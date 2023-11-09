@@ -1,0 +1,107 @@
+
+pip3 install virtualenv #instalamos virtualenv para hacer el entorno de trabajo
+
+ D:\ProyectosScrapyvnv> python -m venv venv   #(Creamos un venv nombre venv   nuestro nuevo entorno virtual )
+
+vamos al power shell de windows como administradores:
+    Get-ExecutionPolicy   (si es Restricted lo cambiamos)
+    Set-ExecutionPolicy Unrestricted   (Aceptamosy activamos el nuevo venv)
+
+D:\ProyectosScrapyvnv> .\venv\Scripts\Activate.ps1    #(accedemos alnuevo venv  que acabamos de crear)
+
+Volvemos al power shell de windows y: 
+    Set-ExecutionPolicy Restricted  (lo volvemos a cerrar)
+
+
+pip install scrapy    #instalamos scrapy en el venv virtual enviroment
+
+scrapy startproject bookscraper     #(hacemos un nuevo proyecto de bookscraper)
+
+cd bookscraper/spiders
+
+scrapy genspider bookspider books.toscrape.com  #(generamos una nueva spider )
+
+pip install ipython   para tener un terminal mas i
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+scrapy shell      #(entramos en el nuevo shell)
+
+fetch('https://books.toscrape.com/')
+
+response.css('article.product_pod')
+
+response.css('article.product_pod').get()
+
+books = response.css('article.product_pod')
+
+len(books)
+
+book = books[0]
+
+book.css('h3 a::text').get()
+
+book.css('.product_price .price_color::text').get()
+
+book.css('h3 a').attrib['href']
+
+ exit
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ cd..
+ crapy crawl bookspider    #(ejecutamos la spider que acabamops de crear con lo que hicimos en la scrapy shel)
+~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ scrapy shell  #(volvemos a scrapy shell)
+ 
+ fetch('https://books.toscrape.com/')
+ response.css('li.next a ::attr(href)').get()
+ exit
+
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+scrapy crawl bookspider
+
+~~~~~~~~~~~~~~~~~~~~~~
+scrapy shell
+
+fetch('https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html') #/(fetch en la pagina del primer libro)
+
+ response.css('.product_page')
+
+ response.css('.product_main h1::text').get() (titulo)
+
+
+(DEfinimos book y books ....=)
+utilizamos xpath
+ book.xpath("//div[@id='product_description']/following-sibling::p/text()").get()
+ exit
+
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ pip install xpath-py
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ scrapy shell
+
+
+fetch('https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html')
+
+response.xpath("//div[@id='product_description']/following-sibling::p/text()").get()
+response.xpath("//ul[@class='breadcrumb']/li[@class='active']/preceding-sibling::li[1]/a/text()").get()
+
+table_rows = response.cc("table tr")
+table_rows[1].css('td ::text').get()
+    'Books'
+response.css("p.star-rating").attrib['class']
+    'star-rating Three'
+exit
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+completamos la spider bookspider
+
+scrapy crawl bookspider -O bookdata.csv
+scrapy crawl bookspider -O bookdata.json
+
+
+
+
